@@ -1,4 +1,4 @@
-package com.example.SpringBootFirstApp;
+package com.example.SpringBootFirstApp.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
