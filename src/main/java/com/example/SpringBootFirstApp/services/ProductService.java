@@ -1,6 +1,8 @@
 package com.example.SpringBootFirstApp.services;
 
 import com.example.SpringBootFirstApp.model.Product;
+import com.example.SpringBootFirstApp.repository.ProductRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,33 +12,26 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    List<Product> products =  new ArrayList<>(Arrays.asList(
-            new Product(101, "Iphone", 70000),
-            new Product(102, "S23", 43000),
-            new Product(103, "Macbook", 92999)
-    ));
+    @Autowired
+    ProductRepo productRepo;
 
     public List<Product> getProducts() {
-        return products;
+        return productRepo.findAll();
     }
 
     public Product getProductById(int id) {
-        return products.stream().filter(product -> product.getId() == id).toList().getFirst();
+        return productRepo.findById(id).orElse(null);
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        productRepo.save(product);
     }
 
     public void updateProduct(Product product) {
-        for(int i = 0; i<products.size(); i++){
-            if(products.get(i).getId() == product.getId()){
-                products.set(i, product);
-            }
-        }
+        productRepo.save(product);
     }
 
     public void deleteProduct(int id) {
-        products.removeIf(product -> product.getId() == id);
+        productRepo.deleteById(id);
     }
 }
