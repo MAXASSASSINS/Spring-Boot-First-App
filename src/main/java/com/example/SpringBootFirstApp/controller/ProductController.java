@@ -4,10 +4,11 @@ import com.example.SpringBootFirstApp.model.Product;
 import com.example.SpringBootFirstApp.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/api")
 public class ProductController {
 
     @Autowired
