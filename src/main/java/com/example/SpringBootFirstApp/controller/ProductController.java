@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -33,9 +35,14 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public void addProduct(@RequestBody Product product) {
-        System.out.println(product);
-        service.addProduct(product);
+    public ResponseEntity<Product>  addProduct(@RequestPart Product product, @RequestPart MultipartFile image) {
+        try{
+            Product product1 = service.addProduct(product, image);
+            return new ResponseEntity<>(product, HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/products")
